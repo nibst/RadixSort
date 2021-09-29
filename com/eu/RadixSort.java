@@ -9,29 +9,28 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 public class RadixSort {
 
     private static final Logger LOG = Logger.getLogger(RadixSort.class.getName());
-    private final String OUTPUT = "output.txt";
     private Scanner scanner;
     private PrintWriter printWriter;
     private final int NLETTERS = 26;
 
-    public RadixSort(final String fileName) {
+    public RadixSort(final String fileName, final String outputName) {
+
         File inputFile = new File(fileName);
         FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(OUTPUT);
-            printWriter = new PrintWriter(fileWriter);
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, "No output file");
-        }
         try {
             scanner = new Scanner(inputFile);
         } catch (Exception exception) {
             LOG.log(Level.SEVERE, "No input file");
+        }
+        try {
+            fileWriter = new FileWriter(outputName);
+            printWriter = new PrintWriter(fileWriter);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, "No output file");
         }
     }
 
@@ -62,14 +61,14 @@ public class RadixSort {
 
     private void printOutput(String[] sArr, int size) {
         /* para todas as palavras
-          enquanto prox palavra for igual a minha atual contagem++
-          print palavra + contagem \n
+            enquanto prox palavra for igual a minha atual contagem++
+           print palavra + contagem \n
          */
         int nPalavras;
-        int i=0;
+        int i = 0;
         while (i < size) {
             nPalavras = 1;
-            while (i < size-1 && (sArr[i].equals(sArr[i + 1]))) {
+            while (i < size - 1 && (sArr[i].equals(sArr[i + 1]))) {
                 nPalavras++;
                 i++;
             }
