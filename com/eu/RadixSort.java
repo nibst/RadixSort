@@ -49,27 +49,35 @@ public class RadixSort {
             }
         }
         //transformar lista pra array pra facilitar
-        String[] unsortedStrings = new String[listStrings.size()];
-        listStrings.toArray(unsortedStrings);
+        String[] sArr = new String[listStrings.size()];
+        listStrings.toArray(sArr);
 
-        for (int i = 0; i < 200; i++) {
-            System.out.print(unsortedStrings[i] + " ");
-        }
-        System.out.println("");
         String[] aux = new String[size];
-        radixSort(unsortedStrings, 0, 0, size - 1, aux);
-        for (int i = 0; i < 300; i++) {
-            System.out.print(unsortedStrings[i] + " ");
-        }
-        printOutput();
+        radixSort(sArr, 0, 0, size - 1, aux);
+        printOutput(sArr, size);
         printWriter.close();
         scanner.close();
     }
 
 
-    private void printOutput() {
-        //TODO
+    private void printOutput(String[] sArr, int size) {
+        /* para todas as palavras
+          enquanto prox palavra for igual a minha atual contagem++
+          print palavra + contagem \n
+         */
+        int nPalavras;
+        int i=0;
+        while (i < size) {
+            nPalavras = 1;
+            while (i < size-1 && (sArr[i].equals(sArr[i + 1]))) {
+                nPalavras++;
+                i++;
+            }
+            printWriter.println(sArr[i] + " " + nPalavras);
+            i++;
+        }
     }
+
 
     private void placeOnAccVector(int[] accVector, String string, int posLetter) {
         int posAccVector = 0;
