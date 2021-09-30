@@ -89,10 +89,13 @@ public class RadixSort {
     private void radixSort(String[] sArr, int posLetter, int lo, int hi, String[] aux) {
         //todos elementos do vetor acumulacao vão para 0 por default
         //numero de letras +1 porque o elemento na pos 0 é reservado para o caracter vazio
-        int[] accVector = new int[NLETTERS + 1];
+        //numero de letras +2 porque o ultimo elemento do accVector vai ser usado como auxiliar para recursar as palavras de letra Z
+        int[] accVector = new int[NLETTERS + 2];
+
         //parada de recursao
         if (lo >= hi)
             return;
+
         for (int i = lo; i <= hi; i++) {
             // apenas se a string tiver tamanho igual ou maior a posicao da letra que está analisando
             if (sArr[i].length() > posLetter) {
@@ -102,7 +105,7 @@ public class RadixSort {
                 accVector[0]++;
         }
         //somar as frequencias do vetor para virar um vetor acumulação
-        for (int i = 0; i < NLETTERS; i++) {
+        for (int i = 0; i <= NLETTERS; i++) {
             accVector[i + 1] += accVector[i];
         }
 
@@ -125,7 +128,7 @@ public class RadixSort {
             sArr[i] = aux[i - lo];
         }
         //comecar do r=1 porque não faz sentido dar sort entre as palavras que na posLetter atual estão com letra vazia
-        for (int r = 1; r < NLETTERS; r++) {
+        for (int r = 1; r <= NLETTERS; r++) {
             //sort na proxima posicao de letra nas palavras que começam com as mesmas letras
             radixSort(sArr, posLetter + 1, lo + accVector[r], lo + accVector[r + 1] - 1, aux);
         }
